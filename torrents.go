@@ -63,16 +63,11 @@ func consumer(pages int, incoming chan string, outgoing chan []torrent) {
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetAlignment(tablewriter.ALIGN_LEFT)
 	table.SetAutoFormatHeaders(false)
-	table.SetHeader([]string{"Category", "Seeds", "Title", "URL"})
+	table.SetHeader([]string{"Category", "Seeds", "URL"})
 	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
 	for _, torrent := range torrents {
 		seeds := strconv.Itoa(torrent.seeds)
-		length := 50
-		if len(torrent.title) < length {
-			length = len(torrent.title)
-		}
-		title := torrent.title[0:length]
-		table.Append([]string{torrent.category, seeds, title, torrent.url})
+		table.Append([]string{torrent.category, seeds, torrent.url})
 	}
 	table.Render()
 }
